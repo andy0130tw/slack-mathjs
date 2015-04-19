@@ -39,21 +39,26 @@ app.post('/eval', function(req, resp) {
   if (trigger) {
   	expr = expr.slice(trigger.length);
   }
-
-  result.mrkdwn = true;
   
   try {
     result.ok = true;
     var answer = mathParser.eval(expr);
-    result.text = "for " + post.user_name + ", ans = *" + answer + "*";
+    result.text = "";
     result.attachments = [{
     	color: 'good',
-    	text: 'I\'m MathJS!' 
+    	author_name: '@' + post.user_name,
+    	text: 'ans = *' + answer + '*',
+    	mrkdwn_in: 'text'
     }];
     mathParser.scope.ans = answer;
   } catch (err) {
     result.ok = false;
-    result.text = "for " + post.user_name + ", " + err.toString();
+    result.attachments = [{
+    	color: 'danger',
+    	author_name: '@' + post.user_name,
+    	text: err.toString(),
+    	mrkdwn_in: 'text'
+    }];
     result.error = {
       type: err.name,
       message: err.message
