@@ -47,7 +47,7 @@ app.post('/eval', function(req, resp) {
     mathParser.scope.ans = answer;
   } catch (err) {
     result.ok = false;
-    result.text = err.toString();
+    result.text = "for " + post.user_name + ". " + err.toString();
     result.error = {
       type: err.name,
       message: err.message
