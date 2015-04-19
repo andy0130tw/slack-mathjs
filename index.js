@@ -40,10 +40,11 @@ app.post('/eval', function(req, resp) {
   	expr = expr.slice(trigger.length);
   }
   
+  result.text = "MathJS";
+  
   try {
     result.ok = true;
     var answer = mathParser.eval(expr);
-    result.text = "";
     result.attachments = [{
     	color: 'good',
     	author_name: '@' + post.user_name,
