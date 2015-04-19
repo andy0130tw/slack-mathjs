@@ -47,8 +47,7 @@ app.post('/eval', function(req, resp) {
     var answer = mathParser.eval(expr);
     result.attachments = [{
     	color: 'good',
-    	author_name: '@' + post.user_name,
-    	text: 'ans = *' + answer + '*',
+    	text: '@' + post.user_name + ' ans = *' + answer + '*',
     	mrkdwn_in: ['text']
     }];
     mathParser.scope.ans = answer;
@@ -56,8 +55,7 @@ app.post('/eval', function(req, resp) {
     result.ok = false;
     result.attachments = [{
     	color: 'danger',
-    	author_name: '@' + post.user_name,
-    	text: err.toString(),
+    	text: '@' + post.user_name + ' ' + err.toString(),
     	mrkdwn_in: ['text']
     }];
     result.error = {
