@@ -24,7 +24,7 @@ app.post('/eval', function(req, resp) {
   var trigger = post.trigger_word;
 
   // do not respond to bot-users
-  if(!post.user_name){
+  if(post.user_name == 'slackbot'){
   	resp.end();
   	return;
   }
@@ -47,7 +47,7 @@ app.post('/eval', function(req, resp) {
     mathParser.scope.ans = answer;
   } catch (err) {
     result.ok = false;
-    result.text = "for " + post.user_name + ". " + err.toString();
+    result.text = "for " + post.user_name + ", " + err.toString();
     result.error = {
       type: err.name,
       message: err.message
