@@ -23,6 +23,10 @@ app.post('/eval', function(req, resp) {
   var expr = post.text;
   var trigger = post.trigger_word;
 
+  // do not respond to bot-users
+  if(!post.user_name)
+  	return;
+
   if (!expr) {
   	result.ok = false;
   	result.text = 'No message sent.';
