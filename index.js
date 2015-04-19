@@ -1,0 +1,50 @@
+var express = require('express');
+var math = require('mathjs');
+var bodyParser = require('body-parser');
+var app = express();
+
+app.set('port', (process.env.PORT || 8080));
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.listen(app.get('port'), function () {
+  console.log('app starting at port '+ app.get('port'));
+});
+
+var mathParser = new math.parser();
+
+app.get('/eval', function(req, resp) {
+	resp.send('/eval only currently accept POST requests.');
+});
+
+app.post('/eval', function(req, resp) {
+  var result = {};
+  var expr = req.body.text;
+  var trigger = req.body.trigger_word;
+
+  if (!expr) {
+  	result.ok = false;
+  	result.text = 'No message sent.';
+    resp.json(result);
+    return;
+  }
+
+  if (trigger) {
+  	expr = expr.slice(trigger.length);
+  }
+
+  try {
+    result.ok = true;
+    result.text = mathParser.eval(expr);
+  } catch (err) {
+    result.ok = false;
+    result.text = err.toString();
+    result.error = {
+      type: err.name,
+      message: err.message
+    };
+  }
+
+  resp.json(result);
+
+});

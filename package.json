@@ -1,0 +1,22 @@
+{
+  "name": "slack-mathjs",
+  "version": "0.0.1",
+  "description": "  MathJS bot in Slack",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andy0130tw/slack-mathjs.git"
+  },
+  "author": "Andy Pan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andy0130tw/slack-mathjs/issues"
+  },
+  "homepage": "https://github.com/andy0130tw/slack-mathjs",
+  "dependencies": {
+    "request": "^2.54.0",
+    "express": "^4.12.3",
+    "mathjs": "^1.5.2",
+    "body-parser": "^1.12.3"
+  }
+}
