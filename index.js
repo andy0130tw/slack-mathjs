@@ -24,8 +24,10 @@ app.post('/eval', function(req, resp) {
   var trigger = post.trigger_word;
 
   // do not respond to bot-users
-  if(!post.user_name)
+  if(!post.user_name){
+  	resp.end();
   	return;
+  }
 
   if (!expr) {
   	result.ok = false;
