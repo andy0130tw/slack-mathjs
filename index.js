@@ -40,7 +40,7 @@ app.post('/eval', function(req, resp) {
   	expr = expr.slice(trigger.length);
   }
   
-  result.text = "MathJS";
+  result.text = 'MathJS';
   
   try {
     result.ok = true;
@@ -49,7 +49,7 @@ app.post('/eval', function(req, resp) {
     	color: 'good',
     	author_name: '@' + post.user_name,
     	text: 'ans = *' + answer + '*',
-    	mrkdwn_in: 'text'
+    	mrkdwn_in: ['text']
     }];
     mathParser.scope.ans = answer;
   } catch (err) {
@@ -58,7 +58,7 @@ app.post('/eval', function(req, resp) {
     	color: 'danger',
     	author_name: '@' + post.user_name,
     	text: err.toString(),
-    	mrkdwn_in: 'text'
+    	mrkdwn_in: ['text']
     }];
     result.error = {
       type: err.name,
