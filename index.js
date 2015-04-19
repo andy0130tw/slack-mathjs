@@ -40,10 +40,16 @@ app.post('/eval', function(req, resp) {
   	expr = expr.slice(trigger.length);
   }
 
+  result.mrkdwn = true;
+  
   try {
     result.ok = true;
     var answer = mathParser.eval(expr);
-    result.text = "for " + post.user_name + ", ans = " + answer;
+    result.text = "for " + post.user_name + ", ans = *" + answer + "*";
+    result.attachments = [{
+    	color: 'good',
+    	text: 'I\'m MathJS!' 
+    }];
     mathParser.scope.ans = answer;
   } catch (err) {
     result.ok = false;
