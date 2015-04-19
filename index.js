@@ -19,8 +19,9 @@ app.get('/eval', function(req, resp) {
 
 app.post('/eval', function(req, resp) {
   var result = {};
-  var expr = req.body.text;
-  var trigger = req.body.trigger_word;
+  var post = req.body;
+  var expr = post.text;
+  var trigger = post.trigger_word;
 
   if (!expr) {
   	result.ok = false;
@@ -35,7 +36,9 @@ app.post('/eval', function(req, resp) {
 
   try {
     result.ok = true;
-    result.text = mathParser.eval(expr);
+    var answer = mathParser.eval(expr);
+    result.text = "for " + post.user_name + ", ans = " + answer;
+    mathParser.scope.ans = answer;
   } catch (err) {
     result.ok = false;
     result.text = err.toString();
