@@ -57,8 +57,8 @@ app.post('/eval', function(req, resp) {
     } else {
     	result.attachments = [{
     		color: 'warning',
-    		fallback: dispName + ': { Function ' + answer.name + ' }',
-    		text: dispName + ': { Function `' + answer.name + '` }',
+    		fallback: dispName + ': { Function ' + getFuncName(answer) + ' }',
+    		text: dispName + ': { Function `' + getFuncName(answer) + '` }',
     		mrkdwn_in: ['text']
     	}];
     }
@@ -80,3 +80,9 @@ app.post('/eval', function(req, resp) {
   resp.json(result);
 
 });
+
+function getFuncName(f) {
+	// http://stackoverflow.com/a/17923727/2281355
+	return /^function\s+([\w\$]+)\s*\(/.exec( f.toString() )[1];
+}
+
