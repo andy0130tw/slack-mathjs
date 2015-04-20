@@ -55,10 +55,11 @@ app.post('/eval', function(req, resp) {
 	    	mrkdwn_in: ['text']
 	    }];
     } else {
+    	var funcName = getFuncName(answer);
     	result.attachments = [{
     		color: 'warning',
-    		fallback: dispName + ': { Function ' + getFuncName(answer) + ' }',
-    		text: dispName + ': { Function `' + getFuncName(answer) + '` }',
+    		fallback: dispName + ': { Function ' + funcName + ' }',
+    		text: dispName + ': { Function `' + (funcName ? ('`' + funcName + '`') : '') + '` }',
     		mrkdwn_in: ['text']
     	}];
     }
@@ -67,8 +68,8 @@ app.post('/eval', function(req, resp) {
     result.ok = false;
     result.attachments = [{
     	color: 'danger',
-    	fallback: dispName + err.toString(),
-    	text: dispName + ' *' + err.name + '* ' + err.message,
+    	fallback: dispName + ' ' + err.toString(),
+    	text: dispName + ' *' + err.name + '*: ' + err.message,
     	mrkdwn_in: ['text']
     }];
     result.error = {
@@ -83,6 +84,7 @@ app.post('/eval', function(req, resp) {
 
 function getFuncName(f) {
 	// http://stackoverflow.com/a/17923727/2281355
-	return /^function\s+([\w\$]+)\s*\(/.exec( f.toString() )[1];
+	var matches = /^function\s+([\w\$]+)\s*\(/.exec( f.toString() );
+	return matches ? matches[1] : null;
 }
 
