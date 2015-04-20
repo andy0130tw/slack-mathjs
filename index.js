@@ -40,7 +40,7 @@ app.post('/eval', function(req, resp) {
   	expr = expr.slice(trigger.length);
   }
   
-  result.text = '  ';
+  result.text = '';
   
   try {
     result.ok = true;
