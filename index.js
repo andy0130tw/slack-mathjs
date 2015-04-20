@@ -42,22 +42,33 @@ app.post('/eval', function(req, resp) {
   
   result.text = '\00';
   
+  var dispName = '@' + post.user_name;
+
   try {
     result.ok = true;
     var answer = mathParser.eval(expr);
-    result.attachments = [{
-    	color: 'good',
-    	fallback: '@' + post.user_name + ': ans = ' + answer,
-    	text: '@' + post.user_name + ': ans = *' + answer + '*',
-    	mrkdwn_in: ['text']
-    }];
+    if (!(answer instanceof Function)) {
+	    result.attachments = [{
+	    	color: 'good',
+	    	fallback: dispName + ': ans = ' + answer,
+	    	text: dispName + ': ans = *' + answer + '*',
+	    	mrkdwn_in: ['text']
+	    }];
+    } else {
+    	result.attachments = [{
+    		color: 'warning',
+    		fallback: dispName + ': { Function ' + answer.name + ' }',
+    		text: dispName + ': { Function `' + answer.name + '` }',
+    		mrkdwn_in: ['text']
+    	}];
+    }
     mathParser.scope.ans = answer;
   } catch (err) {
     result.ok = false;
     result.attachments = [{
     	color: 'danger',
-    	fallback: '@' + post.user_name + err.toString(),
-    	text: '@' + post.user_name + ' *' + err.name + '* ' + err.message,
+    	fallback: dispName + err.toString(),
+    	text: dispName + ' *' + err.name + '* ' + err.message,
     	mrkdwn_in: ['text']
     }];
     result.error = {
