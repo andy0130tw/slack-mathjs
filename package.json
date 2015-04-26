@@ -17,7 +17,6 @@
     "request": "^2.54.0",
     "express": "^4.12.3",
     "mathjs": "^1.6.0",
-    "body-parser": "^1.12.3",
-    "tripwire": "^0.10.0"
+    "body-parser": "^1.12.3"
   }
 }
