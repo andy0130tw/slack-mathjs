@@ -20,3 +20,6 @@ handlers.setMathParser(mathParser);
 
 app.get('/eval', handlers.evalGet);
 app.post('/eval', handlers.evalPost);
+
+app.get('/scope/read', handlers.scopeReadGet);
+
