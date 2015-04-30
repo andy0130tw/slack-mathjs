@@ -23,10 +23,6 @@ app.listen(app.get('port'), function () {
 
 });
 
-var mathParser = new math.parser();
-
-handlers.setMathParser(mathParser);
-
 app.get('/eval', handlers.evalGet);
 app.post('/eval', handlers.evalPost);
 
